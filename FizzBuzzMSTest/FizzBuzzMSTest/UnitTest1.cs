@@ -6,12 +6,12 @@ namespace FizzBuzzMSTest
     [TestClass]
     public class FizzBuzzConverterTests
     {
-        private FizzBuzzConverter sut;
+        private CompositeNumberConverter sut;
 
         [TestInitialize]
         public void Initialize()
         {
-            this.sut = new FizzBuzzConverter();
+            this.sut = new CompositeNumberConverter(new NumberConverter(), new FizzConverter(), new BuzzConverter());
         }
 
         [TestMethod]
@@ -19,7 +19,7 @@ namespace FizzBuzzMSTest
         {
             var result = this.sut.Convert(1);
 
-            Assert.AreEqual(1, result);
+            Assert.AreEqual("1", result);
         }
 
         [TestMethod]
@@ -27,7 +27,7 @@ namespace FizzBuzzMSTest
         {
             var result = this.sut.Convert(2);
 
-            Assert.AreEqual(2, result);
+            Assert.AreEqual("2", result);
         }
 
         [TestMethod]
@@ -43,7 +43,7 @@ namespace FizzBuzzMSTest
         {
             var result = this.sut.Convert(4);
 
-            Assert.AreEqual(4, result);
+            Assert.AreEqual("4", result);
         }
 
         [TestMethod]
@@ -84,30 +84,6 @@ namespace FizzBuzzMSTest
             var result = this.sut.Convert(30);
 
             Assert.AreEqual("FizzBuzz", result);
-        }
-    }
-
-    public class FizzBuzzConverter
-    {
-        public object Convert(int number)
-        {
-            object result = null;
-            if (number % 3 == 0)
-            {
-                result += "Fizz";
-            }
-
-            if (number % 5 == 0)
-            {
-                result += "Buzz";
-            }
-
-            if (result != null)
-            {
-                return result;
-            }
-
-            return number;
         }
     }
 }
